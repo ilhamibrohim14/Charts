@@ -97,7 +97,7 @@ open class AxisRendererBase: Renderer
         let labelCount = axis.labelCount
         let range = abs(yMax - yMin)
         
-        if labelCount == 0 || range <= 0 || range.isInfinite || !range.isZero || !range.isNaN
+        if labelCount == 0 || range <= 0 || range.isInfinite || range.isZero || range.isNaN
         {
             axis.entries = [Double]()
             axis.centeredEntries = [Double]()
@@ -116,7 +116,7 @@ open class AxisRendererBase: Renderer
         }
         
         // Normalize interval
-        if interval<=0 {
+        if interval<1 {
             axis.entries = [Double]()
             axis.centeredEntries = [Double]()
             return
