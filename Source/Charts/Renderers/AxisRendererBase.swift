@@ -97,13 +97,13 @@ open class AxisRendererBase: Renderer
         let labelCount = axis.labelCount
         let range = abs(yMax - yMin)
         
-        if labelCount == 0 || range <= 0 || range.isInfinite
+        if labelCount == 0 || range <= 0 || range.isInfinite || range.isZero || range.isNaN
         {
             axis.entries = [Double]()
             axis.centeredEntries = [Double]()
             return
         }
-        
+    
         // Find out how much spacing (in y value space) between axis values
         let rawInterval = range / Double(labelCount)
         var interval = rawInterval.roundedToNextSignficant()
@@ -116,6 +116,12 @@ open class AxisRendererBase: Renderer
         }
         
         // Normalize interval
+        if interval<1 {
+            axis.entries = [Double]()
+            axis.centeredEntries = [Double]()
+            return
+        }
+        
         let intervalMagnitude = pow(10.0, Double(Int(log10(interval)))).roundedToNextSignficant()
         let intervalSigDigit = Int(interval / intervalMagnitude)
         if intervalSigDigit > 5
