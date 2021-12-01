@@ -116,7 +116,9 @@ open class AxisRendererBase: Renderer
         }
         
         // Normalize interval
-        if interval <= 0  {
+        if log10(interval) < Double(Int.min) ||
+            log10(interval) > Double(Int.max) ||
+            interval <= 0 {
             axis.entries = [Double]()
             axis.centeredEntries = [Double]()
             return
