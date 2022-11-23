@@ -428,7 +428,6 @@ extension ChartDataSet: RangeReplaceableCollection {
             entries.replaceSubrange(subrange, with: newElements)
             notifyDataSetChanged()
     }
-    
     public func append(_ newElement: Element) {
         calcMinMax(entry: newElement)
         entries.append(newElement)
